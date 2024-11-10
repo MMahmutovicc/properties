@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #fdf1d3;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+iframe {
+    border: none; 
+    width: 100%;
+    height: 70px;
+}
+
+.vijesti {
+    display: grid;
+}
+
+.glavnaVijest {
+    width: 100vw;
+    /*grid-row: span 2;*/
+    border: 1px solid black;
+    padding: 1rem;
+    grid-area: gv;
+}
+
+.glavnaVijest img {
+    width: 50%;
+    margin: 1rem auto;
+    display: block;
+}
+
+.visokaVijest {
+    /*grid-row: span 2;*/
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.kvadratnaVijest {
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.vijest__naslov {
+    font-size: 1.5rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0.5rem 1rem;   
+    color: #333;
+}
+
+.vijest__tekst {
+    font-size: 0.9rem;
+    margin: auto;
+    text-align: center;
+    background-color: rgba(255, 255, 0, 0.2);
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+}
+
+#visokaVijest1 {
+    grid-area: vv1;
+}
+
+#visokaVijest2 {
+    grid-area: vv2;
+}
+
+#visokaVijest3 {
+    grid-area: vv3;
+}
+
+#visokaVijest4 {
+    grid-area: vv4;
+}
+
+#kvadratnaVijest1 {
+    grid-area: kv1;
+}
+
+#kvadratnaVijest2 {
+    grid-area: kv2;
+}
+
+#kvadratnaVijest3 {
+    grid-area: kv3;
+}
+
+#kvadratnaVijest4 {
+    grid-area: kv4;
+}
+
+#kvadratnaVijest5 {
+    grid-area: kv5;
+}
+
+#kvadratnaVijest6 {
+    grid-area: kv6;
+}
+
+#kvadratnaVijest7 {
+    grid-area: kv7;
+}
+
+#kvadratnaVijest8 {
+    grid-area: kv8;
+}
+
+
+@media (min-width: 800px) {
+    .vijesti {
+        grid-template-areas: 
+        "gv gv gv gv"
+        "gv gv gv gv"
+        "vv1 kv1 kv2 vv2"
+        "vv1 kv3 kv4 vv2"
+        "vv3 kv5 kv6 vv4"
+        "vv3 kv7 kv8 vv4";
+    }
+    .glavnaVijest {
+        height: 50vw;
+        /*grid-column: span 4;*/
+        
+    }
+
+    .visokaVijest {
+        width: 25vw;
+        height: 50vw;
+    }
+
+    .kvadratnaVijest {
+        width: 25vw;
+        height: 25vw;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .vijesti {
+        grid-template-areas: 
+        "gv gv"
+        "gv gv"
+        "vv1 kv1"
+        "vv1 kv2"
+        "kv3 vv2"
+        "kv4 vv2"
+        "vv3 kv5"
+        "vv3 kv6"
+        "kv7 vv4"
+        "kv8 vv4";
+    }
+    .glavnaVijest {
+        height: 100vw;
+        /*grid-column: span 2;*/
+    }
+
+    .visokaVijest {
+        width: 50vw;
+        height: 100vw;
+    }
+
+    .kvadratnaVijest {
+        width: 50vw;
+        height: 50vw;
+    }
+}

@@ -1,0 +1,13 @@
+-css koji se ponavlja u fajlovima se moze izdvojiti u zaseban fajl 
+-kroz sve fajlove se velicine postavljaju u px sto nije dobra praksa
+
+meni.css:
+
+-liste su pozicionirane pomocu float sto i nije najbolja praksa jer se s tim elementi izbacuju iz document flow-a
+-svim elementima se pristupa preko tagova i kombinatora, bolje je koristiti klase 
+
+nekretnine.css:
+
+-height navigacije je postavljen u px sto je remetilo prethodno rjesenje navigacija pa je smaknuto
+-u transformaciji iz grid u flex dodan je property box-sizing:border-box; u .nekretnina da bi sirina od 300px uracunala i padding,
+te samim tim bila jednaka sirini koju postavlja sljedeci property grid-template-columns: repeat(auto-fit, 300px);
