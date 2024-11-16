@@ -1,13 +1,20 @@
--css koji se ponavlja u fajlovima se moze izdvojiti u zaseban fajl 
+generalno:
 -kroz sve fajlove se velicine postavljaju u px sto nije dobra praksa
+-bolje je koristiti rem, em, %, vw i vh da bi se postigla odredjena doza responzivnosti
+-razumijem da se iframe koristi da se ne ponavlja html za navigaciju ali nije dobra praksa za ovaj slucaj
+-iframe visina je inicijalno postavljena na 50px, ovo sam promijenio u 4rem da bi odgovaralo visini koju sam u meni.css postavio
 
-meni.css:
+meni:
 
--liste su pozicionirane pomocu float sto i nije najbolja praksa jer se s tim elementi izbacuju iz document flow-a
+-list items su pozicionirane pomocu float sto mozda i nije najbolja solucija
+-za navigaciju je moguce staviti position: fixed;, top: 0;, left: 0; width: 100vw; da bi navigacija uvijek bila na vrhu ekrana 
 -svim elementima se pristupa preko tagova i kombinatora, bolje je koristiti klase 
 
-nekretnine.css:
+nekretnine:
 
--height navigacije je postavljen u px sto je remetilo prethodno rjesenje navigacija pa je smaknuto
 -u transformaciji iz grid u flex dodan je property box-sizing:border-box; u .nekretnina da bi sirina od 300px uracunala i padding,
-te samim tim bila jednaka sirini koju postavlja sljedeci property grid-template-columns: repeat(auto-fit, 300px);
+te samim tim bila jednaka sirini koju je postavljao property grid-template-columns: repeat(auto-fit, 300px);
+
+vijesti:
+
+-za fiksan broj vijesti layout odgovara postavljenim zahtjevima, dok se u slucaju dodavanja novih vijesti iste redaju slijeva nadesno 
