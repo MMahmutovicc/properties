@@ -13,11 +13,14 @@ let StatistikaNekretnina = function () {
         let filtriraneNekretnine = spisakNekretnina.filtrirajNekretnine(kriterij);
         if (filtriraneNekretnine.length === 0)
             return 0;
+
         console.log(filtriraneNekretnine);
         console.log(filtriraneNekretnine.length);
         let suma = 0;
+
         for (let i = 0; i < filtriraneNekretnine.length; i++)
             suma += filtriraneNekretnine[i].kvadratura;
+
         return suma / filtriraneNekretnine.length;
     }
 
@@ -25,12 +28,13 @@ let StatistikaNekretnina = function () {
         let filtriraneNekretnine = spisakNekretnina.filtrirajNekretnine(kriterij);
         let suma = 0;
 
-        for (let i = 0; i < filtriraneNekretnine.length; i++) {
+        for (let i = 0; i < filtriraneNekretnine.length; i++) 
             suma += filtriraneNekretnine[i][nazivSvojstva];
-        }
+        
 
         let prosjek = suma / filtriraneNekretnine.length;
-        let maxOdstupanje = 0;
+        console.log(prosjek);
+        let maxOdstupanje = -1;
         let outlierNekretnina = null;
 
         for (let i = 0; i < filtriraneNekretnine.length; i++) {
@@ -46,10 +50,10 @@ let StatistikaNekretnina = function () {
 
     let mojeNekretnine = function (korisnik) {
         let nekretnine = [];
-        for (let i = 0; i < listaNekretnina.length; i++) {
-            let count = listaNekretnina[i].upiti.filter(upit => upit.korisnik_id === korisnik.id).length;
+        for (let i = 0; i < this.listaNekretnina.length; i++) {
+            let count = this.listaNekretnina[i].upiti.filter(upit => upit.korisnik_id === korisnik.id).length;
             if (count > 0) {
-                nekretnine.push({ nekretnina: listaNekretnina[i], count: count });
+                nekretnine.push({ nekretnina: this.listaNekretnina[i], count: count });
             }
         }
         nekretnine.sort((a, b) => b.count - a.count);
@@ -63,7 +67,7 @@ let StatistikaNekretnina = function () {
 
         for (let i = 0; i < periodi.length; i++) {
             for (let j = 0; j < rasponiCijena.length; j++) {
-                let brojNekretnina = listaNekretnina.filter(nekretnina => 
+                let brojNekretnina = this.listaNekretnina.filter(nekretnina => 
                     parseInt(nekretnina.datum_objave.split('.')[2]) >= periodi[i].od && 
                     parseInt(nekretnina.datum_objave.split('.')[2]) <= periodi[i].do &&
                     nekretnina.cijena >= rasponiCijena[j].od &&

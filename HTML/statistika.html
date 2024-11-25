@@ -7,8 +7,16 @@
 </head>
 <body>
     <iframe src="meni.html"></iframe>
-    <form action="">
-        <h2>Prosječna kvadratura</h2>
+    <select name="opcija" id="opcija">
+        <option value="1">Prosječna kvadratura</option>
+        <option value="2">Outlier</option>
+        <option value="3">Moje nekretnine</option>
+        <option value="4">Histogram cijena</option>
+    </select>
+    
+    <!--Filtriranje za prosjecnu kvadraturu-->
+    <div id="div1">
+        <h2 class="prosjekKvadrataPrikaz">Prosječna kvadratura</h2>
         <label for="">Izaberite kriterije filtriranja</label><br>
 
         <label for="tip">Tip Nekretnine</label>
@@ -35,13 +43,81 @@
         <input type="checkbox" id="maxCijena" name="maxCijenaCheckbox">
         <input type="number" id="maxCijenaInput" name="maxCijenaInput" min="0" placeholder="Maksimalna cijena"><br>
 
-        <button id="izracunaj" type="button">Izračunaj prosječnu kvadraturu</button>
+        <button id="button1" class="prosjekKvadrataPrikaz" type="button">Izračunaj prosječnu kvadraturu</button>
 
-        <p id="prosjecnaKvadratura"></p>
-    </form>
+    </div>
+    <!--Filtriranje i svojstvo za outlier-->
+    <div id="div2" style="display: none;">
+        <h2>Outlier</h2>
 
-    
+        <label for="">Izaberite kriterije filtriranja</label><br>
 
+        <label for="tip">Tip Nekretnine</label>
+        <input type="checkbox" id="tip" name="tipCheckbox">
+        <select id="tipNekretnine" name="tipNekretnine">
+            <option value="Stan">Stan</option>
+            <option value="Kuća">Kuća</option>
+            <option value="poslovniProstor">Poslovni Prostor</option>
+        </select><br>
+
+        <label for="minKvadratura">Minimalna Kvadratura</label>
+        <input type="checkbox" id="minKvadratura" name="minKvadraturaCheckbox">
+        <input type="number" id="minKvadraturaInput" name="minKvadraturaInput" min="0" placeholder="Minimalna kvadratura"><br>
+        
+        <label for="maxKvadratura">Maksimalna Kvadratura</label>
+        <input type="checkbox" id="maxKvadratura" name="maxKvadraturaCheckbox">
+        <input type="number" id="maxKvadraturaInput" name="maxKvadraturaInput" min="0" placeholder="Maksimalna kvadratura"><br>
+
+        <label for="minCijena">Minimalna cijena</label>
+        <input type="checkbox" id="minCijena" name="minCijenaCheckbox">
+        <input type="number" id="minCijenaInput" name="minCijenaInput" min="0" placeholder="Minimalna cijena"><br>
+        
+        <label for="maxCijena">Maksimalna Cijena</label>
+        <input type="checkbox" id="maxCijena" name="maxCijenaCheckbox">
+        <input type="number" id="maxCijenaInput" name="maxCijenaInput" min="0" placeholder="Maksimalna cijena"><br>
+        
+        <label for="">Izaberite svojstvo:</label>
+
+        <select id="nazivSvojstva" name="nazivSvojstva">
+            <option value="kvadratura">Kvadratura</option>
+            <option value="cijena">Cijena</option>
+            <option value="godina_izgradnje">Godina izgradnje</option>
+        </select><br>
+
+        <button id="button2" type="button">Pronađi outlier</button>
+
+    </div>
+
+    <div id="div3" style="display: none;">
+        <h2>Moje Nekretnine</h2>
+        
+        <label for="">Izaberite korisnika:</label><br>
+
+        <select id="korisnik" name="korisnik">
+            <option value="username1">Neko Nekic</option>
+            <option value="username2">Neko2 Nekic2</option>
+        </select><br>
+
+        <button id="button3" type="button">Pronađi nekretnine</button>
+
+    </div>
+
+    <div id="div4" style="display: none;">
+        <h2>Histogram Cijena</h2>
+
+        <button id="dodajPeriodBtn">Dodaj period</button>
+        <button id="dodajCijenuBtn">Dodaj raspon cijene</button><br>
+
+        <button id="button4" type="button">Iscrtaj histogram cijena</button>
+
+        <canvas id="myBarChart" width="400" height="200"></canvas>
+
+    </div>
+
+    <p id="rezultat"></p>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../Scripts/SpisakNekretnina.js"></script>
     <script src="../Scripts/StatistikaNekretnina.js"></script>
     <script type="module" src="../Scripts/statistika.js"></script>
