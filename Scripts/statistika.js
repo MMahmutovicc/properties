@@ -1,4 +1,5 @@
 document.querySelector('select[name="opcija"]').addEventListener('change', function(event) {
+    document.getElementById('rezultat').innerText = "";
     for (let i = 1; i <= 4; i++) {
         if(i == parseInt(event.target.value)) {
             document.getElementById('div'+i).style.display = 'block';
@@ -174,11 +175,15 @@ function izracunajProsjecnuKvadraturu() {
 function pronadiOutlier() {
     var kriterij = podesiKriterij(1);
     console.log(kriterij);
+
     var nazivSvojstvaSelect = document.querySelector('select[name="nazivSvojstva"]');
     var outlier = nazivSvojstvaSelect.options[nazivSvojstvaSelect.selectedIndex].value;
     console.log(outlier);
+    
     var outlierNekretnina = statistika.outlier(kriterij, outlier);
     console.log(outlierNekretnina);
+
+    document.getElementById('rezultat').innerText = "Outlier: "+outlierNekretnina.naziv + ", " + outlier + "= " + outlierNekretnina[outlier];
 }
 
 function pronadiNekretnine() {
@@ -187,9 +192,14 @@ function pronadiNekretnine() {
 
     var korisnik = listaKorisnika.find(k => k.username === korisnikSelect.options[korisnikSelect.selectedIndex].value);
     console.log(korisnik);
-    var nekretnine = statistika.mojeNekretnine(korisnik);
 
+    var nekretnine = statistika.mojeNekretnine(korisnik);
     console.log(nekretnine);
+
+    document.getElementById('rezultat').innerText = "Nekretnine:\n";
+    nekretnine.forEach((nekretnina, index) => {
+        document.getElementById('rezultat').innerText += index + 1 +'. ' + nekretnina.naziv + "\n";
+    });
 }
 
 
@@ -201,15 +211,19 @@ function dodajPeriod() {
     periodiInputs[periodiInputs.length-1].do.type = 'number';
     periodiInputs[periodiInputs.length-1].do.name = 'do'+periodiInputs.length;
 
+    var inputGroup = document.createElement('div');
+    inputGroup.className = 'input-group';
+
     var label = document.createElement('label');
     label.innerText = 'Period Od:';
-    div4.insertBefore(label, document.getElementById('button4'));
-    div4.insertBefore(periodiInputs[periodiInputs.length-1].od, document.getElementById('button4'));
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(periodiInputs[periodiInputs.length-1].od);
+    
     var label = document.createElement('label');
-    label.innerText = 'Do:';
-    div4.insertBefore(label, document.getElementById('button4'));
-    div4.insertBefore(periodiInputs[periodiInputs.length-1].do, document.getElementById('button4'));
-    div4.insertBefore(document.createElement('br'), document.getElementById('button4'));
+    label.innerText = ' Do:';
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(periodiInputs[periodiInputs.length-1].do);
+    div4.insertBefore(inputGroup, document.getElementById('button4'));
 }
 
 function dodajCijenu() {
@@ -219,15 +233,20 @@ function dodajCijenu() {
     rasponiCijenaInputs[rasponiCijenaInputs.length-1].do.type = 'number';
     rasponiCijenaInputs[rasponiCijenaInputs.length-1].do.name = 'do'+rasponiCijenaInputs.length;
 
+    var inputGroup = document.createElement('div');
+    inputGroup.className = 'input-group';
+
     var label = document.createElement('label');
     label.innerText = 'Cijena Od:';
-    div4.insertBefore(label, document.getElementById('button4'));
-    div4.insertBefore(rasponiCijenaInputs[rasponiCijenaInputs.length-1].od, document.getElementById('button4'));
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(rasponiCijenaInputs[rasponiCijenaInputs.length-1].od);
+    
     var label = document.createElement('label');
-    label.innerText = 'Do:';
-    div4.insertBefore(label, document.getElementById('button4'));
-    div4.insertBefore(rasponiCijenaInputs[rasponiCijenaInputs.length-1].do, document.getElementById('button4'));
-    div4.insertBefore(document.createElement('br'), document.getElementById('button4'));
+    label.innerText = ' Do:';
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(rasponiCijenaInputs[rasponiCijenaInputs.length-1].do);
+
+    div4.insertBefore(inputGroup, document.getElementById('button4'));
 }
 
 
@@ -270,7 +289,7 @@ function iscrtajHistogram() {
             data: {
                 labels: labele,
                 datasets: [{
-                    label: 'Broj nekretnina',
+                    label: 'Broj nekretnina u periodu: '+periodi[i].od+'-'+periodi[i].do,
                     data: podaciHistogram,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
