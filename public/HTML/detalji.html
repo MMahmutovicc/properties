@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bs-BA">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalji</title>
+    <link rel="stylesheet" type="text/css" href="../Style/detalji.css">
+</head>
+
+<body>
+    <iframe src="meni.html"></iframe>
+
+    <div id="osnovno">
+        <img id="slika" alt="Nekretnina">
+        <p id="naziv"><strong>Naziv:</strong></p>
+        <p id="kvadratura"><strong>Kvadratura:</strong></p>
+        <p id="cijena"><strong>Cijena:</strong></p>
+    </div>
+
+    <h3>DETALJI</h3>
+    <div id="detalji">
+        <div id="kolona1">
+            <p id="tip-grijanja"><strong>Tip grijanja:</strong></p>
+            <p id="lokacija"><strong>Lokacija:</strong></p>
+        </div>
+        <div id="kolona2">
+            <p id="godina-izgradnje"><strong>Godina izgradnje:</strong></p>
+            <p id="datum-objave"><strong>Datum objave oglasa:</strong></p>
+        </div>
+        <div id="opis">
+            <p><strong>Opis:</strong></p>
+        </div>
+    </div>
+
+
+    <h3>UPITI</h3>
+    <div id="upiti">
+        <a onclick="showPrevious()" class="prev">&#10094;</a>
+        <a onclick="showNext()" class="next">&#10095;</a>
+    </div>
+
+    <div id="top5">
+        <h2 id="top5__naslov">Top 5 nekretnina u istoj lokaciji</h2>
+        <div id="top5__nekretnine"></div>
+    </div>
+
+    <script src="../Scripts/PoziviAjax.js"></script>
+    <script src="../Scripts/carousel.js"></script>
+    <script src="../Scripts/detalji.js"></script>
+</body>
+
+</html>
