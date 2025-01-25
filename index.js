@@ -438,6 +438,7 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
       korisnik = await db.korisnik.findOne({ where: { username: req.session.username } });
     }
 
+    //TODO: Implementacija interesovanja za nekretninu
     const interesovanja = await db.nekretnina.getInteresovanja(id);
 
     if(!interesovanja) {}
@@ -449,6 +450,42 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 
+});
+
+app.post('/nekretnina/:id/ponuda', async (req, res) => {
+  if (!req.session.username) {
+    return res.status(401).json({ greska: 'Neautorizovan pristup' });
+  }
+
+  const { id } = req.params;
+
+  const {tekst, ponudaCijene, datumPonude, idVezanePonude, odbijenaPonuda} = req.body;
+
+  try {
+    const korisnik = await db.korisnik.findOne({ where: { username: req.session.username } });
+
+    //TODO: Implementacija kreiranja ponude
+    if (idVezanePonude) {
+      if (!korisnik.admin) {
+        const parentOffer = await db.ponuda.findOne({ where: { id: idVezanePonude } });
+
+        if (parentOffer.korisnikId !== korisnik.id) {
+          return res.status(403).json({ greska: 'Neautorizovan pristup' });
+        }
+      }
+      
+
+      if (!parentOffer) {
+        return res.status(404).json({ greska: 'Ponuda nije pronadjena' });
+      }
+
+    }
+
+
+  } catch (error) {
+    console.error('Greška prilikom čitanja ili pisanja JSON datoteke:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.post('/nekretnina/:id/zahtjev', async (req, res) => {
@@ -480,7 +517,7 @@ app.post('/nekretnina/:id/zahtjev', async (req, res) => {
       odobren: null
     });
 
-    res.status(200).json({ poruka: 'Zahtjev je uspješno dodan' });
+    res.status(200).json({ poruka: 'Zahtjev je uspješno poslan' });
   } catch (error) {
     console.error('Greška prilikom čitanja ili pisanja JSON datoteke:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -496,27 +533,29 @@ app.put('/nekretnina/:id/zahtjev/:zid', async (req, res) => {
   const { odobren, addToTekst } = req.body;
 
   try {
-    datum = new Date(trazeniDatum);
+    const korisnik = await db.korisnik.findOne({ where: { username: req.session.username } });
 
-    if (datum < new Date()) {
-      return res.status(400).json({ greska: 'Neispravan datum' });
+    if (!korisnik || !korisnik.admin) {
+      return res.status(401).json({ greska: 'Neautorizovan pristup' });
     }
 
-    const nekretnina = await db.nekretnina.findOne({ where: { id: id } });
+    const zahtjev = await db.zahtjev.findOne({ where: {id: zid} });
 
-    if (!nekretnina) {
-      return res.status(404).json({ greska: 'Nekretnina nije pronadjena' });
+    if (!zahtjev) {
+      return res.status(404).json({ greska: 'Zahtjev nije pronadjen' });
+    }
+    if (!odobren && !addToTekst) {
+      return res.status(400).json({ greska: 'Nedostaje odgovor' });
+    }
+    
+    zahtjev.odobren = odobren;
+    if (addToTekst) {
+      zahtjev.tekst += `\n ODGOVOR ADMINA: ${addToTekst}`;
     }
 
-    db.zahtjev.create({
-      tekst: tekst,
-      trazeniDatum: trazeniDatum,
-      korisnikId: 1,
-      nekretninaId: id,
-      odobren: false
-    });
+    zahtjev.save();
 
-    res.status(200).json({ poruka: 'Zahtjev je uspješno dodan' });
+    res.status(200).json({ poruka: 'Zahtjev je uspješno uredjen' });
   } catch (error) {
     console.error('Greška prilikom čitanja ili pisanja JSON datoteke:', error);
     res.status(500).json({ error: 'Internal Server Error' });
