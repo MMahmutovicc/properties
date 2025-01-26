@@ -173,6 +173,10 @@ iframe {
   background-color: #f8f8f8;
 }
 
+#datum-interesovanja {
+  display: none;
+}
+
 #interesovanje-forma label,
 #interesovanje-forma input[type="checkbox"] {
   display: inline-block;
@@ -202,4 +206,10 @@ iframe {
 #dodaj-interesovanje:hover {
   background-color: #fdf1d3;
   color: #000;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
 }

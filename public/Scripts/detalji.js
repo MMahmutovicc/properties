@@ -64,7 +64,6 @@ function posaljiInteresovanje() {
 
     if (tip === "ponuda") {
         if ((cijena === "" || isNaN(cijena))) {
-            alert("Morate unijeti cijenu");
             return;
         }
         
@@ -72,45 +71,65 @@ function posaljiInteresovanje() {
         const idVezanePonude = vezana ? vezana : null;
         PoziviAjax.postNekretninaPonuda(nekretninaId, tekst, cijena, datumPonude, idVezanePonude, odbijena, (error, data) => {
             if (error) {
-                alert("Došlo je do greške.");
+                if (error.status === 401) {
+                    window.location.href = "prijava.html";
+                }
+                else if(error.status === 400) {
+                    document.getElementById("interesovanje-forma").innerHTML = `<p class="error">Ponuda je odbijena.</p>`;
+                }
+                else {
+                    document.getElementById("interesovanje-forma").innerHTML = `<p class="error">Greška</p>`;
+                }
                 return;
             }
-
-            alert("Interesovanje uspješno dodano.");
-            window.location.reload();
+            else {
+                document.getElementById("interesovanje-forma").innerHTML = `<p class="success">Ponuda je uspješno poslana.</p>`;
+            }
         });
-
-        return;
     }
 
     else if (tip === "zahtjev") {
         if (datum == "") {
-            alert("Datum ne smije biti prazan.");
             return;
         }
         
         PoziviAjax.postNekretninaZahtjev(nekretninaId, tekst, datum, (error, data) => {
             if (error) {
-                alert("Došlo je do greške.");
+                if (error.status === 401) {
+                    window.location.href = "prijava.html";
+                }
+                else if(error.status === 400) {
+                    document.getElementById("interesovanje-forma").innerHTML = `<p class="error">Greška</p>`;
+                }
+                else {
+                    document.getElementById("interesovanje-forma").innerHTML = `<p class="error">Greška</p>`;
+                }
                 return;
             }
-
-            alert("Interesovanje uspješno dodano.");
-            window.location.reload();
+            else {
+                document.getElementById("interesovanje-forma").innerHTML = `<p class="success">Zahtjev je uspješno poslan.</p>`;
+            }
         });
-
-        return;
     }
 
     else {
         PoziviAjax.postUpit(nekretninaId, tekst, (error, data) => {
             if (error) {
-                alert("Došlo je do greške.");
+                if (error.status === 401) {
+                    window.location.href = "prijava.html";
+                }
+                else if(error.status === 400) {
+                    document.getElementById("interesovanje-forma").innerHTML = `<p class="error">Greška</p>`;
+                }
+                else {
+                    document.getElementById("interesovanje-forma").innerHTML = `<p class="error">Ne možete slati više upita za ovu nekretninu</p>`;
+                }
                 return;
             }
-    
-            alert("Interesovanje uspješno dodano.");
-            window.location.reload();
+            else {
+                document.getElementById("interesovanje-forma").innerHTML = `<p class="success">Upit je uspješno poslan.</p>`;
+                return;
+            }
         });
     }
 }

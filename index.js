@@ -540,7 +540,6 @@ app.post('/nekretnina/:id/ponuda', async (req, res) => {
         const vezanePonude = await vezanaPonuda.vezanePonude;
 
         const postojiOdbijenaPonuda = vezanaPonuda.odbijenaPonuda || vezanePonude.some(ponuda => {
-          console.log("Da li je ponuda odbijena?" +ponuda.odbijenaPonuda);
           return ponuda.odbijenaPonuda
         }
         );
