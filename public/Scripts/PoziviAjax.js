@@ -247,6 +247,102 @@ const PoziviAjax = (() => {
         });
     }
 
+    function impl_getInteresovanja(nekretnina_id, fnCallback) {
+        let ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("PUT", `http://localhost:3000/nekretnina/${nekretnina_id}/interesovanja`, true)
+        ajax.send()
+    }
+
+    function impl_postNekretninaPonuda(nekretnina_id, tekst, ponudaCijene, datumPonude, idVezanePonude, odbijenaPonuda){
+        var ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, ajax.response)
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                console.log("Response", ajax.responseText);
+                fnCallback(ajax.responseText, null)
+            }
+        }
+        ajax.open("POST", `http://localhost:3000/nekretnina/${nekretnina_id}/ponuda`, true)
+        ajax.setRequestHeader("Content-Type", "application/json")
+
+        let ponuda = {
+            "tekst": tekst,
+            "ponudaCijene": ponudaCijene,
+            "datumPonude": datumPonude,
+            "idVezanePonude": idVezanePonude,
+            "odbijenaPonuda": odbijenaPonuda
+        }
+
+        forSend = JSON.stringify(ponuda)
+        ajax.send(forSend)
+
+        fnCallback(null, { poruka: 'Ponuda je uspjesno dodana' });
+    }
+
+    function impl_postNekretninaZahtjev(nekretnina_id, tekst, trazeniDatum, fnCallback){
+        var ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, ajax.response)
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                console.log("Response", ajax.responseText);
+                fnCallback(ajax.responseText, null)
+            }
+        }
+        ajax.open("POST", `http://localhost:3000/nekretnina/${nekretnina_id}/zahtjev`, true)
+        ajax.setRequestHeader("Content-Type", "application/json")
+        let upit = {
+            "tekst": tekst,
+            "trazeniDatum": trazeniDatum
+        }
+        forSend = JSON.stringify(upit)
+        ajax.send(forSend)
+
+        fnCallback(null, { poruka: 'Zahtjev je uspješno dodan' });
+    }
+
+    function impl_putNekretninaZahtjev(nekretnina_id, zahtjev_id, odobren, addToTekst, fnCallback){
+        let ajax = new XMLHttpRequest()
+
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                fnCallback(null, JSON.parse(ajax.responseText))
+            }
+            else if (ajax.readyState == 4) {
+                //desio se neki error
+                fnCallback(ajax.statusText, null)
+            }
+        }
+        ajax.open("PUT", `http://localhost:3000/nekretnina/${nekretnina_id}/zahtjev/${zahtjev_id}`, true)
+        ajax.setRequestHeader("Content-Type", "application/json")
+        
+        
+        let izmjena = {
+            odobren: odobren,
+            addToTekst: addToTekst,
+        }
+        ajax.send(JSON.stringify(izmjena));
+
+        fnCallback(null, { poruka: 'Zahtjev je uspješno ažuriran' });
+    }
+
     return {
         postLogin: impl_postLogin,
         postLogout: impl_postLogout,
@@ -257,6 +353,10 @@ const PoziviAjax = (() => {
         getTop5Nekretnina: impl_getTop5Nekretnina,
         getMojiUpiti: impl_getMojiUpiti,
         getNekretnina: impl_getNekretnina,
-        getNextUpiti: impl_getNextUpiti
+        getNextUpiti: impl_getNextUpiti,
+        getInteresovanja: impl_getInteresovanja,
+        postNekretninaPonuda: impl_postNekretninaPonuda,
+        postNekretninaZahtjev: impl_postNekretninaZahtjev,
+        putNekretninaZahtjev: impl_putNekretninaZahtjev
     };
 })();
