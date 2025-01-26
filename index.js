@@ -460,10 +460,10 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
         if ('cijenaPonude' in rest && rest.korisnikId !== korisnik.id) {
           const vezanePonude = await interesovanje.vezanePonude;
           
-          let postoji = false;
+          let postojiPonudaKorisnika = false;
 
           if (vezanePonude) {
-            postoji = vezanePonude.some(ponuda => {
+            postojiPonudaKorisnika = vezanePonude.some(ponuda => {
 
               if(ponuda && ponuda.korisnikId === korisnik.id) {
                 return true;
@@ -471,7 +471,7 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
 
             });
           }
-          if (!postoji) {
+          if (!postojiPonudaKorisnika) {
             delete rest.cijenaPonude;
           }
         }
@@ -483,7 +483,6 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
     else {
       interesovanjaData = interesovanja;
     }
-
 
     res.status(200).json(interesovanjaData);
   } catch (error) {
@@ -521,20 +520,57 @@ app.post('/nekretnina/:id/ponuda', async (req, res) => {
           return res.status(404).json({ error: 'Početna ponuda nije pronađena' });
         }
 
+        const vezanePonude = await vezanaPonuda.vezanePonude;
 
-
-        if (parentOffer.korisnikId !== korisnik.id) {
-          return res.status(403).json({ greska: 'Neautorizovan pristup' });
+        const postojiOdbijenaPonuda = vezanaPonuda.odbijenaPonuda || vezanePonude.some(ponuda => {
+          console.log("Da li je ponuda odbijena?" +ponuda.odbijenaPonuda);
+          return ponuda.odbijenaPonuda
         }
-      
+        );
+        if (postojiOdbijenaPonuda) {
+            return res.status(400).json({ error: 'Postoji odbijena ponuda.' });
+        }
 
-      if (!parentOffer) {
-        return res.status(404).json({ greska: 'Ponuda nije pronadjena' });
-      }
+        const daLiJeAdmin = korisnik.admin
+        const daLiJeVlasnikPonude = vezanaPonuda.korisnikId === korisnik.id;
 
+        if(!daLiJeAdmin && !daLiJeVlasnikPonude) {
+          const vlasnikNekePonude = vezanePonude.some(ponuda => ponuda.korisnikId === korisnik.id);
+          if(!vlasnikNekePonude) {
+            return res.status(403).json({ error: 'Neautorizovan pristup.' });
+          }
+        }
+
+        let korijenskiId  = vezanaPonuda.id;
+        if(vezanaPonuda.korijenskiId) {
+          const korijenskaPonuda = await db.ponuda.findOne({where: {id: vezanaPonuda.korijenskiId}});
+          korijenskiId = korijenskaPonuda.id;
+        }
+
+        db.ponuda.create({
+          tekst: tekst,
+          datumPonude: datumPonude,
+          odbijenaPonuda: odbijenaPonuda,
+          nekretninaId: id,
+          korisnikId: korisnik.id,
+          cijenaPonude: ponudaCijene,
+          korijenskiId: korijenskiId
+        });
     }
 
+    else {
+      db.ponuda.create({
+        tekst: tekst,
+        datumPonude: datumPonude,
+        odbijenaPonuda: odbijenaPonuda,
+        nekretninaId: id,
+        korisnikId: korisnik.id,
+        cijenaPonude: ponudaCijene,
+        korijenskiId: null
+      });
+    }
 
+    res.status(200).json({ poruka: 'Ponuda je uspješno poslana' });
   } catch (error) {
     console.error('Greška prilikom čitanja ili pisanja JSON datoteke:', error);
     res.status(500).json({ error: 'Internal Server Error' });
