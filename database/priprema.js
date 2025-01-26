@@ -22,6 +22,7 @@ function inicializacija() {
         prezime: "admin",
         username: "admin",
         password: "$2a$12$.kN1Ju2lJlMrsmjAzTGIA.9fzpYIes/4tIl0YeI9N4IzXzA/oOWl.",
+        admin: true,
       },
       {
         id: 2,
@@ -29,6 +30,7 @@ function inicializacija() {
         prezime: "user",
         username: "user",
         password: "$2a$12$ZbrOdHeX90XUizE0u1gwYeYOV6YKan2vhYOAlyefsPw3WbFx5FfK6",
+        admin: false,
       }
     ];
 
