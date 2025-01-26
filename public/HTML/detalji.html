@@ -33,12 +33,37 @@
         </div>
     </div>
 
-
-    <h3>UPITI</h3>
-    <div id="upiti">
-        <a onclick="showPrevious()" class="prev">&#10094;</a>
-        <a onclick="showNext()" class="next">&#10095;</a>
+    <h3>INTERESOVANJA</h3>
+    <div id="interesovanja">
+        <div id="interesovanja-dodaj">
+            <button id="dodaj-interesovanje" onclick="dodajInteresovanje()">Dodaj interesovanje</button>
+            <form id="interesovanje-forma">
+                <select id="tip-interesovanja" name="tip-interesovanja">
+                    <option value="ponuda" selected>Ponuda</option>
+                    <option value="zahtjev">Zahtjev</option>
+                    <option value="upit">Upit</option>
+                </select>
+                <textarea id="tekst-interesovanja" name="tekst-interesovanja" placeholder="Unesite tekst"></textarea>
+                <input type="date" id="datum-interesovanja" name="datum-interesovanja">
+                <label id="vezana" for="vezana-ponuda">Vezane ponude:</label>
+                <select id="vezana-ponuda" name="vezana-ponuda">
+                </select>
+                <input type="number" id="cijena-ponude" name="cijena-ponude" placeholder="Unesite cijenu">
+                <label id="odbija" for="odbijena-ponuda">Odbijena ponuda:</label>
+                <input type="checkbox" id="odbijena-ponuda" name="odbijena-ponuda">
+                <button type="button" onclick="posaljiInteresovanje()">Pošalji</button>
+            </form>
+        </div>  
+        <div id="interesovanja-lista">
+            <a onclick="showPrevious()" class="prev">&#10094;</a>
+            <a onclick="showNext()" class="next">&#10095;</a>
+        </div>
     </div>
+
+    <!-- <h3>UPITI</h3>
+    <div id="upiti">
+        
+    </div> -->
 
     <div id="top5">
         <h2 id="top5__naslov">Top 5 nekretnina u istoj lokaciji</h2>

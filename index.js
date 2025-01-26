@@ -370,8 +370,15 @@ app.get('/nekretnina/:id', async (req, res) => {
 
     const upiti = await db.upit.findAll({ 
       where: { 
-        nekretninaId: id 
-      } ,
+      nekretninaId: id 
+      },
+      attributes: [
+      'id',
+      ['tekst', 'tekst_upita'],
+      ['korisnikId', 'korisnik_id'],
+      ['nekretninaId', 'nekretnina_id'],
+      'createdAt'
+      ],
       order: [['createdAt', 'DESC']],
       limit: 3
     });
@@ -449,6 +456,7 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
     if(!korisnik) {
       interesovanjaData = interesovanja.map((interesovanje) => {
         const { cijenaPonude, ...rest } = interesovanje.dataValues;
+        rest.vidljivost = false;
         return rest;
       });
     }
@@ -456,7 +464,10 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
     else if(!korisnik.admin) {
       interesovanjaData = await Promise.all(interesovanja.map(async (interesovanje) => {
         const rest = { ...interesovanje.dataValues };
-
+        rest.vidljivost = true;
+        if (interesovanje.korisnikId != korisnik.id) {
+          rest.vidljivost = false;
+        }
         if ('cijenaPonude' in rest && rest.korisnikId !== korisnik.id) {
           const vezanePonude = await interesovanje.vezanePonude;
           
@@ -474,6 +485,9 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
           if (!postojiPonudaKorisnika) {
             delete rest.cijenaPonude;
           }
+          else {
+            rest.vidljivost = true;
+          }
         }
         return rest;
       }));
@@ -481,7 +495,10 @@ app.get('/nekretnina/:id/interesovanja', async (req, res) => {
     }
 
     else {
-      interesovanjaData = interesovanja;
+      interesovanjaData = interesovanja.map(interesovanje => {
+        const rest = { ...interesovanje.dataValues, vidljivost: true };
+        return rest;
+      });
     }
 
     res.status(200).json(interesovanjaData);

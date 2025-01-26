@@ -32,7 +32,7 @@ iframe {
 }
 
 /* Stil za div #detalji */
-#detalji {
+#detalji, #interesovanja-dodaj {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -64,7 +64,7 @@ iframe {
 
 
 /* Stil za div #upiti */
-#upiti {
+#upiti, #interesovanja-lista {
   border: 1px solid #000;
   padding: 20px;
   margin: 20px;
@@ -73,7 +73,7 @@ iframe {
   overflow: hidden;
 }
 
-.upit, .nekretnina {
+.upit, .nekretnina, .interesovanje {
   border: 1px solid #000;
   padding: 10px;
   margin-bottom: 10px;
@@ -110,11 +110,13 @@ iframe {
   border-radius: 3px 0 0 3px;
 }
 
-.upit {
+.upit,
+.interesovanje {
   display: none;
 }
 
-.upit:first-child {
+.upit:first-child,
+.interesovanje:first-child {
   display: block;
 }
 
@@ -135,4 +137,69 @@ iframe {
   gap: 20px;
   padding: 20px;
   margin: 20px;
+}
+
+#interesovanja-dodaj {
+  justify-content: center;
+  align-items: center;
+}
+
+#interesovanje-forma {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+  gap: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  background-color: #ffffff;
+  border: 1px solid #000;
+}
+
+#interesovanje-forma textarea {
+  resize: vertical;
+}
+
+#interesovanje-forma input,
+#interesovanje-forma select,
+#interesovanje-forma button,
+#interesovanje-forma textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 0.1rem;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+
+#interesovanje-forma label,
+#interesovanje-forma input[type="checkbox"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+#dodaj-interesovanje {
+  width: 30%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+
+#interesovanje-forma button,
+#dodaj-interesovanje {
+  background-color: #000;
+  color: #fdf1d3;
+  font-weight: bold;
+  cursor: pointer;
+  width: 50%;
+  transition: background-color 0.3s;
+}
+
+#interesovanje-forma button:hover,
+#dodaj-interesovanje:hover {
+  background-color: #fdf1d3;
+  color: #000;
 }
