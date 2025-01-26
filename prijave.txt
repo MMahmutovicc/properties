@@ -41,3 +41,16 @@
 [2025-01-25T15:37:00.422Z] - username: username1 - status: uspješno
 [2025-01-25T15:39:02.559Z] - username: username1 - status: uspješno
 [2025-01-25T15:48:00.323Z] - username: username1 - status: uspješno
+[2025-01-26T17:17:10.645Z] - username: username1 - status: uspješno
+[2025-01-26T17:18:35.030Z] - username: username1 - status: uspješno
+[2025-01-26T17:19:06.889Z] - username: username1 - status: neuspješno
+[2025-01-26T17:19:10.823Z] - username: username1 - status: neuspješno
+[2025-01-26T17:19:13.658Z] - username: username1 - status: neuspješno
+[2025-01-26T17:19:23.984Z] - username: username1 - status: neuspješno
+[2025-01-26T17:19:27.822Z] - username: username1 - status: neuspješno
+[2025-01-26T17:20:40.020Z] - username: username1 - status: neuspješno
+[2025-01-26T17:20:41.096Z] - username: username1 - status: neuspješno
+[2025-01-26T17:20:41.776Z] - username: username1 - status: neuspješno
+[2025-01-26T17:20:47.703Z] - username: username1 - status: neuspješno
+[2025-01-26T17:22:35.586Z] - username: username1 - status: uspješno
+[2025-01-26T17:33:00.678Z] - username: username1 - status: uspješno

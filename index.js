@@ -39,7 +39,7 @@ const routes = [
   { route: '/meni.html', file: 'meni.html' },
   { route: '/prijava.html', file: 'prijava.html' },
   { route: '/profil.html', file: 'profil.html' },
-  { route: '/upiti.html', file: 'mojiUpiti.html' },
+  { route: '/mojiUpiti.html', file: 'mojiUpiti.html' },
   // Practical for adding more .html files as the project grows
 ];
 
@@ -320,9 +320,15 @@ app.get('/nekretnine/top5', async (req, res) => {
   const lokacija = req.query.lokacija;
   try {
     const nekretnine = await readJsonFile('nekretnine');
+
+    const parseDate = (dateStr) => {
+      const [day, month, year] = dateStr.split('.');
+      return new Date(year, month - 1, day);
+    };
+
     const filtriraneNekretnine = nekretnine
       .filter((nekretnina) => nekretnina.lokacija.toLowerCase() === lokacija.toLowerCase())
-      .sort((a, b) => new Date(b.datum_objave) - new Date(a.datum_objave))
+      .sort((a, b) => parseDate(b.datum_objave) - parseDate(a.datum_objave))
       .slice(0, 5);
     res.status(200).json(filtriraneNekretnine);
   } catch (error) {
@@ -362,7 +368,7 @@ app.get('/upiti/moji', async (req, res) => {
       return res.status(404).json(upiti);
     }
 
-    res.status(404).json([]);
+    res.status(200).json(upiti);
 
   } catch (error) {
     console.error('Greška prilikom čitanja ili pisanja JSON datoteke:', error);
