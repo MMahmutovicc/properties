@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 //TODO: promijeniti password
-const sequelize_obj = new Sequelize("wt24","root","",{host:"localhost",dialect:"mysql"});
+const sequelize_obj = new Sequelize("wt24","root","password",{host:"localhost",dialect:"mysql"});
 const db={};
 const path = require('path');
 

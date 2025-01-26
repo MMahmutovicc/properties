@@ -120,3 +120,8 @@
 [2025-01-26T16:36:49.045Z] - username: mmahmutovi3 - status: uspješno
 [2025-01-26T16:42:23.021Z] - username: mmahmutovi3 - status: uspješno
 [2025-01-26T17:12:38.096Z] - username: mmahmutovi3 - status: uspješno
+[2025-01-26T17:44:44.822Z] - username: user - status: neuspješno
+[2025-01-26T17:44:46.644Z] - username: user - status: neuspješno
+[2025-01-26T17:44:47.557Z] - username: user - status: neuspješno
+[2025-01-26T17:46:03.499Z] - username: user - status: neuspješno
+[2025-01-26T17:46:06.980Z] - username: user - status: uspješno

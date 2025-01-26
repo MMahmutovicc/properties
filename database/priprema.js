@@ -18,25 +18,18 @@ function inicializacija() {
     const korisniciPodaci = [
       {
         id: 1,
-        ime: "Neko",
-        prezime: "Nekic",
-        username: "username1",
-        password: "$2b$10$OFykzLMWv.wpDk2dXT5C8ObIgy8tlZYbm0ZPN0VTe8I/jXosIX1EG",
+        ime: "admin",
+        prezime: "admin",
+        username: "admin",
+        password: "$2a$12$.kN1Ju2lJlMrsmjAzTGIA.9fzpYIes/4tIl0YeI9N4IzXzA/oOWl.",
       },
       {
         id: 2,
-        ime: "Neko2",
-        prezime: "Nekic2",
-        username: "username2",
-        password: "$2b$10$eN2a0Ii0mkjvpSUU.6.S4uASuULIlAspWFc2LkJTmIYPZszB8oyXC",
-      },
-      {
-        id: 3,
-        ime: "mirza",
-        prezime: "mahmutovic",
-        username: "mmahmutovi3",
-        password: "$2a$12$5UjCy8fecwKC90zyLcc1AuUF2iiAVVyM85Hqxfu65Gy0W/dV7lVtG",
-      },
+        ime: "user",
+        prezime: "user",
+        username: "user",
+        password: "$2a$12$ZbrOdHeX90XUizE0u1gwYeYOV6YKan2vhYOAlyefsPw3WbFx5FfK6",
+      }
     ];
 
     korisniciPodaci.forEach((korisnik) => {
