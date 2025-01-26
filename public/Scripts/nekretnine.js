@@ -57,6 +57,7 @@ function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
 
             const detaljiDugme = document.createElement('a');
             //detaljiDugme.href = '../HTML/detalji.html'; // hardkodiran html
+            detaljiDugme.href = `detalji.html?id=${nekretnina.id}`; // dinamicki html
             detaljiDugme.classList.add('detalji-dugme');
             detaljiDugme.textContent = 'Detalji';
             detaljiDugme.addEventListener('click', function () {
