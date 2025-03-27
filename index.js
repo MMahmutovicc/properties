@@ -25,7 +25,7 @@ app.use(express.json());
 // Async function for serving html files
 async function serveHTMLFile(req, res, fileName) {
   console.log('Current folder:', __dirname);
-  const htmlPath = '/public/html/'.filename; // path.join(__dirname, 'public', 'html', fileName);
+  const htmlPath = '/public/html/'+fileName; // path.join(__dirname, 'public', 'html', fileName);
   try {
     const content = await fs.readFile(htmlPath, 'utf-8');
     res.send(content);
