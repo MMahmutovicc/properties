@@ -1,6 +1,11 @@
 const Sequelize = require("sequelize");
+const connectionString = process.env.DATABASE_URL;
 //TODO: promijeniti password
-const sequelize_obj = new Sequelize("wt24","root","password",{host:"localhost",dialect:"mysql"});
+const sequelize_obj = new Sequelize(connectionString,
+  {
+    dialect:"postgres",
+  });
+
 const db={};
 const path = require('path');
 
