@@ -7,15 +7,13 @@ const bcrypt = require('bcrypt');
 const db = require('./database/db.js')
 
 const app = express();
-const PORT = 3000;
-process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
-});
+const PORT = process.env.PORT || 3000;
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-});
+
 const FRONTEND_URL = process.env.FRONTEND_URL;
+app.use(cors({
+  origin: FRONTEND_URL
+}));
 
 app.use(session({
   secret: 'tajna sifra',
