@@ -8,7 +8,14 @@ const db = require('./database/db.js')
 const cors = require('cors'); 
 
 const app = express();
-const PORT = process.env.PORT || 3001;;
+const PORT = process.env.PORT || 3001;
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
 const FRONTEND_URL = process.env.FRONTEND_URL;
 app.use(cors({
   origin: FRONTEND_URL
