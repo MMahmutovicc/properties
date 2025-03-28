@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const db = require('./database/db.js')
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 3000;
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
