@@ -5,9 +5,17 @@ const path = require('path');
 const fs = require('fs').promises; // Using asynchronus API for file read and write
 const bcrypt = require('bcrypt');
 const db = require('./database/db.js')
+const cors = require('cors'); 
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
+const FRONTEND_URL = process.env.FRONTEND_URL;
+app.use(cors({
+  origin: FRONTEND_URL, // Allow requests from React app running on localhost:3000
+  methods: 'GET,POST', // Allow GET and POST methods
+  allowedHeaders: 'Content-Type,Authorization', // Allow specific headers if needed
+  credentials: true // Uncomment if you need to send cookies or authorization headers
+}));
 
 app.use(session({
   secret: 'tajna sifra',
