@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs').promises; // Using asynchronus API for file read and write
 const bcrypt = require('bcrypt');
 const db = require('./database/db.js')
+const cors = require('cors'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
