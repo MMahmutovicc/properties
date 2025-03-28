@@ -33,7 +33,7 @@ app.use(express.json());
 // Async function for serving html files
 async function serveHTMLFile(req, res, fileName) {
   console.log('Current folder:', __dirname);
-  const htmlPath = '/public/html/'+fileName; // path.join(__dirname, 'public', 'html', fileName);
+  const htmlPath = path.join(__dirname, 'public', 'html', fileName);
   try {
     const content = await fs.readFile(htmlPath, 'utf-8');
     res.send(content);
@@ -792,6 +792,6 @@ app.post('/marketing/osvjezi/klikovi', async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
 });
