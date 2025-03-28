@@ -11,10 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 app.use(cors({
-  origin: FRONTEND_URL, // Allow requests from React app running on localhost:3000
-  methods: 'GET,POST', // Allow GET and POST methods
-  allowedHeaders: 'Content-Type,Authorization', // Allow specific headers if needed
-  credentials: true // Uncomment if you need to send cookies or authorization headers
+  origin: FRONTEND_URL
 }));
 
 app.use(session({
