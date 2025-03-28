@@ -8,7 +8,7 @@ const db = require('./database/db.js')
 const cors = require('cors'); 
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 app.use(cors({
   origin: FRONTEND_URL, // Allow requests from React app running on localhost:3000
